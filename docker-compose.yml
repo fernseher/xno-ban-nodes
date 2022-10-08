@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+  nano-node:
+    image: nanocurrency/nano:V23.3
+    container_name: nano-node
+    hostname: nano-node
+    environment:
+      - TERM=xterm
+    restart: unless-stopped
+    ports:
+      - "7075:7075/udp"
+      - "7075:7075"
+      - "::1:7078:7078"
+    volumes:
+      - ./nano-node-docker/nano-node:/root
+  
+  pippin-nano:
+    image: pippin_nano
+    container_name: pippin_nano
+    restart: unless-stopped
+    ports:
+      - "::1:11337:11338"
+    volumes:
+      - ./pippin-nano:/root
+  
+
+  banano-node:
+    image: bananocoin/banano:latest
+    container_name: banano-node
+    hostname: banano-node
+    restart: unless-stopped
+    ports:
+      - "7071:7071"
+      - "::1:7074:7074"
+    volumes:
+      - ~:/root
+  
+  pippin-banano:
+    image: pippin_banano
+    container_name: pippin_banano
+    restart: unless-stopped
+    ports:
+      - "::1:11338:11338"
+    volumes:
+      - ./pippin-banano:/root
